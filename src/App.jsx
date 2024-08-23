@@ -1,39 +1,26 @@
-import { useState } from "react";
-import { useDispatch, useSelector } from "react-redux";
-import { userdelete } from "./Store/Reducers/UserReducer";
+import React from "react";
+import User from "./Components/User";
+import Product from "./Components/Product";
+import Home from "./Components/Home";
+import { Route,  Routes } from "react-router-dom";
+import Nav from "./Components/Nav";
+import Footer from "./Components/Footer"
 
-
-function App() {
-const {User} = useSelector((state)=>state.UserReducer)
-
-const dispatch = useDispatch()
-
-const deleteHandler = (index)=>{
-  dispatch(userdelete(index))
-  
-}
-
+const App = () => {
   return (
-    <div className="max-h-screen w-full ">
-      <div className="max-w-screen-xl mx-auto rounded-md mt-10 bg-black">
-        <h1 className="text-white text-5xl p-5 text-center font-serif">
-          Redux Toolkit
-        </h1>
+    <div className="w-screen h-screen flex flex-col justify-between">
+    <Nav/>
+    <Routes>
+      <Route path="/" element={<Home />} />
+      <Route path="/users" element={<User />} />
+      <Route path="/Products" element={<Product />} />
+    </Routes>
+      
+    <Footer/>
 
-     <div className="cursor-pointer">
-      {
-        User.map((elem,index)=>(
-          <ul  key={index}>
-          <li className="text-xl text-white text-center"><h1>{elem.title
-          }</h1><span onClick={()=>deleteHandler(index)}>❌</span></li>
-          <li className="text-white text-center">{elem.id}</li>
-        </ul>
-        ))
-      }
-     </div>
-      </div>
     </div>
+    
   );
-}
+};
 
 export default App;
